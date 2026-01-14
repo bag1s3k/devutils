@@ -1,4 +1,5 @@
-﻿from typing import Optional, Iterable
+﻿from datetime import datetime
+from typing import Optional, Iterable
 
 SUPPORTED_CURRENCIES = {
             "AUD": "Australian Dollar",
@@ -32,16 +33,25 @@ SUPPORTED_CURRENCIES = {
             "USD": "United States Dollar",
             "ZAR": "South African Rand"
         }
+DATE_PATTERN = "%Y-%m-%d"
 
 class CurrencyValidationError(ValueError):
+    ...
+
+class DateValidationError(ValueError):
     ...
 
 class CurrencyAPI:
     BASE_URL = "https://api.frankfurter.dev/v1"
 
-    def get_latest_url(self, base: Optional[str] = None, symbols: Optional[Iterable[str]] = None) -> str:
+    def get_url(self, base: Optional[str] = None, symbols: Optional[Iterable[str]] = None, date: Optional[str] = None) -> str:
         """Generates the API endpoint URL"""
-        url = f"{self.BASE_URL}/latest"
+        if date:
+            self.validate_date(date)
+            url = f"{self.BASE_URL}/{date}"
+        else:
+            url = f"{self.BASE_URL}/latest"
+
         params = []
 
         if base:
@@ -63,11 +73,10 @@ class CurrencyAPI:
         if invalid:
             raise CurrencyValidationError(f"Unsupported currency codes: {",".join(invalid)}")
 
-if "__main__" == __name__:
-    api = CurrencyAPI()
-    try:
-        print(api.get_latest_url(base="CZK"))
-        print(api.get_latest_url(symbols=["USD", "CZK"]))
-        print(api.get_latest_url(base="USD", symbols=["CZK", "JPY"]))
-    except CurrencyValidationError as e:
-        print(f"Error: {e}")
+    def validate_date(self, date: str):
+        """Check if date is in form 1999-01-04"""
+        try:
+            for d in date.split(".."):
+                datetime.strptime(d, DATE_PATTERN)
+        except ValueError:
+            raise DateValidationError(f"Invalid date: {", ".join(date)}")

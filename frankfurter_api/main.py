@@ -1,35 +1,73 @@
-﻿from typing import Optional
+﻿from typing import Optional, Iterable
 
+SUPPORTED_CURRENCIES = {
+            "AUD": "Australian Dollar",
+            "BRL": "Brazilian Real",
+            "CAD": "Canadian Dollar",
+            "CHF": "Swiss Franc",
+            "CNY": "Chinese Yuan",
+            "CZK": "Czech Koruna",
+            "DKK": "Danish Krone",
+            "EUR": "Euro",
+            "GBP": "British Pound",
+            "HKD": "Hong Kong Dollar",
+            "HUF": "Hungarian Forint",
+            "IDR": "Indonesian Rupiah",
+            "ILS": "Israeli New Shekel",
+            "INR": "Indian Rupee",
+            "ISK": "Icelandic Króna",
+            "JPY": "Japanese Yen",
+            "KRW": "South Korean Won",
+            "MXN": "Mexican Peso",
+            "MYR": "Malaysian Ringgit",
+            "NOK": "Norwegian Krone",
+            "NZD": "New Zealand Dollar",
+            "PHP": "Philippine Peso",
+            "PLN": "Polish Zloty",
+            "RON": "Romanian Leu",
+            "SEK": "Swedish Krona",
+            "SGD": "Singapore Dollar",
+            "THB": "Thai Baht",
+            "TRY": "Turkish Lira",
+            "USD": "United States Dollar",
+            "ZAR": "South African Rand"
+        }
 
-class Currency:
+class CurrencyValidationError(ValueError):
+    ...
 
-    def __init__(self, base=None, to=None, amount=None, crc=None, crcs=None):
-        self.base = base
-        self.to = to
-        self.amount = amount
-        self.crc = crc
-        self.crcs = crcs
-        self.BASE_API_URL = "https://api.frankfurter.dev/v1"
+class CurrencyAPI:
+    BASE_URL = "https://api.frankfurter.dev/v1"
 
-    def specific_crc(self, crc_override=None):
-        """Generates the API endpoint URL with an optional CRC override."""
-        crc = crc_override or self.crc
+    def get_latest_url(self, base: Optional[str] = None, symbols: Optional[Iterable[str]] = None) -> str:
+        """Generates the API endpoint URL"""
+        url = f"{self.BASE_URL}/latest"
+        params = []
 
-        if crc:
-            return f"{self.BASE_API_URL}/latest?base={crc}"
-        else:
-            return f"{self.BASE_API_URL}/latest"
+        if base:
+            self.validate_currencies([base])
+            params.append(f"base={base}")
 
+        if symbols:
+            self.validate_currencies(symbols)
+            params.append(f"symbols={",".join(symbols)}")
 
-    def specific_crcs(self, crcs_override: Optional[list[str]] = None):
-        """Generates the API endpoint URL with an optional CRCS override"""
+        if params:
+            url += f"?{"&".join(params)}"
 
-        crcs = crcs_override or self.crcs
-        if crcs:
-            return f"{self.BASE_API_URL}/latest?symbols={",".join(crc for crc in crcs)}"
-        else:
-            return f"{self.BASE_API_URL}/latest"
+        return url
+
+    def validate_currencies(self, currencies: Iterable[str]):
+        """Check if CRC or CRCS are being supported"""
+        invalid = [c for c in currencies if c not in SUPPORTED_CURRENCIES]
+        if invalid:
+            raise CurrencyValidationError(f"Unsupported currency codes: {",".join(invalid)}")
 
 if "__main__" == __name__:
-    currency = Currency()
-    print(currency.specific_crc())
+    api = CurrencyAPI()
+    try:
+        print(api.get_latest_url(base="CZK"))
+        print(api.get_latest_url(symbols=["USD", "CZK"]))
+        print(api.get_latest_url(base="USD", symbols=["CZK", "JPY"]))
+    except CurrencyValidationError as e:
+        print(f"Error: {e}")

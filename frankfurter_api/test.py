@@ -45,8 +45,6 @@ API_EXAMPLES = (
     }
 )
 
-currency = CurrencyAPI()
-
 async def get_currency(client, kwargs, index):
     response = await client.get(currency.get_url(**kwargs))
     if response.status_code == 200:
@@ -61,6 +59,9 @@ async def main():
                 tg.create_task(get_currency(client, requirements, index))
 
 if "__main__" == __name__:
+    currency = CurrencyAPI()
+
+    # Sync usage
     t1_sync = time.time()
     for i, requirements_sync in enumerate(API_EXAMPLES):
         response_sync = requests.get(currency.get_url(**requirements_sync))
@@ -71,6 +72,7 @@ if "__main__" == __name__:
     time_sync = time.time() - t1_sync
     print()
 
+    # Async usage
     t1_async = time.time()
     asyncio.run(main())
     time_async = time.time() - t1_async

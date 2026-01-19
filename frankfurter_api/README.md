@@ -1,4 +1,4 @@
-# Frankfurter API URL Builder (crcutils)
+# Currency API URL Builder (crcutils)
 
 This project provides a simple Python utility class to generate URLs for the [Frankfurter Currency API](https://frankfurter.dev/). It is designed to separate the URL construction logic from the actual HTTP requests, making it easy to use in both synchronous and asynchronous environments.
 

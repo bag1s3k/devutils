@@ -19,7 +19,7 @@ pip install -e C:\example\subfolder\
 
 To install the basic requirements for the class:
 ```bash
-pip install pip install git+https://github.com/bag1s3k/devutils.git
+pip install git+https://github.com/bag1s3k/devutils.git
 ```
 
 To only clone this project branch use: 

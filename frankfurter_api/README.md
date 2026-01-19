@@ -6,22 +6,23 @@ This project provides a simple Python utility class to generate URLs for the [Fr
 
 * `main.py`: The core class that builds the API endpoints.
 * `test.py`: Example script showing how to fetch data using `requests` and `httpx`.
-* `requirements.txt`: Necessary packages for the main class.
-* `requirements-dev.txt`: Packages required for testing and async support.
 
 ## Installation
 
+1. Activate venv
+2. Install package
+
+When is package stored locally
+```bash
+pip install -e C:\example\subfolder\
+```
+
 To install the basic requirements for the class:
 ```bash
-pip install -r requirements.txt
+pip install git+https://github.com/bag1s3k/devutils.git
 ```
 
 To only clone this project branch use: 
 ```bash
 git clone -b frankfurter_api --single-branch https://github.com/bag1s3k/devutils.git
-```
-
-To only download specific file in **Windows powershell**
-```bash
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/bag1s3k/devutils/main/frankfurter_api/main.py" -OutFile "main.py"
 ```

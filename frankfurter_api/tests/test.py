@@ -3,7 +3,7 @@ import httpx
 import asyncio
 import time
 
-from main import CurrencyAPI
+from crcutils import CurrencyAPI
 
 API_EXAMPLES = (
     {

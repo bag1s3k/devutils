@@ -1,6 +1,13 @@
+# Editors and IDE settings
 .vscode/
 .idea/
 
+# Virtual enviroment
 **/.venv/
 
+# Python runtime
 **/__pycache__/
+
+# Packaging and Distribution
+crcutils.egg-info/
+build/

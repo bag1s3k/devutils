@@ -1,4 +1,4 @@
-# Frankfurter API URL Builder
+# Frankfurter API URL Builder (crcutils)
 
 This project provides a simple Python utility class to generate URLs for the [Frankfurter Currency API](https://frankfurter.dev/). It is designed to separate the URL construction logic from the actual HTTP requests, making it easy to use in both synchronous and asynchronous environments.
 
@@ -19,10 +19,13 @@ pip install -e C:\example\subfolder\
 
 To install the basic requirements for the class:
 ```bash
-pip install pip install git+https://github.com/bag1s3k/devutils.git
+pip install "git+https://github.com/bag1s3k/devutils.git#subdirectory=frankfurter_api"
 ```
 
 To only clone this project branch use: 
 ```bash
-git clone -b frankfurter_api --single-branch https://github.com/bag1s3k/devutils.git
+git clone -b frankfurter_api --single-branch https://github.com/bag1s3k/devutils.git@frankfurter_api
 ```
+
+## Usage
+* `import crcutils` or `from crcutils import CurrencyAPI`

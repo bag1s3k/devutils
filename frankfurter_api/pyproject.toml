@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "crcutils"
+version = "1.0.0"
+dependencies = [
+    "requests",
+    "httpx"
+]
+requires-python = ">=3.7"
+description = "Utililies to generate URL for frankfurter API"
+readme = "README.md"

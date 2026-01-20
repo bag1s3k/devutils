@@ -11,3 +11,6 @@
 # Packaging and Distribution
 crcutils.egg-info/
 build/
+
+# Other files
+todo.md

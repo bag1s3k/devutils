@@ -4,7 +4,7 @@ A collection of reusable Python utilities designed to eliminate repetitive codin
 
 ## Utilities Overview
 
-| Tool         | Description | More                                        |
-|:-------------| :--- |:--------------------------------------------|
-| **crcutils** | URL Builder for the Frankfurter Currency API | [**crcutils**](./frankfurter_api/README.md) |
-| *More tools* | *Coming soon...* |                                             |
+| Tool         | Branch       | Description                                  | More                                        |
+|--------------|--------------|----------------------------------------------|---------------------------------------------|
+| **crcutils** | crcutils_api | URL Builder for the Frankfurter Currency API | [**crcutils**](./frankfurter_api/README.md) |
+| *More tools* |              | *Coming soon...*                             |                                             | |

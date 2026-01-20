@@ -24,7 +24,7 @@ pip install "git+https://github.com/bag1s3k/devutils.git#subdirectory=crcutils_a
 
 To only clone this project branch use: 
 ```bash
-git clone -b crcutils_api --single-branch https://github.com/bag1s3k/devutils.git@crcutils_api
+git clone -b crcutils_api --single-branch https://github.com/bag1s3k/devutils.git
 ```
 
 ## Usage

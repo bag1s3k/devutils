@@ -9,6 +9,6 @@ dependencies = [
     "requests",
     "httpx"
 ]
-requires-python = ">=3.7"
+requires-python = ">=3.12"
 description = "Utililies to generate URL for frankfurter API"
 readme = "README.md"

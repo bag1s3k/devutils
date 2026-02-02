@@ -3,7 +3,7 @@ import httpx
 import asyncio
 import time
 
-from crcutils import CurrencyAPI
+import crcutils as crc
 
 API_EXAMPLES = (
     {
@@ -46,7 +46,7 @@ API_EXAMPLES = (
 )
 
 async def get_currency(client, kwargs, index):
-    response = await client.get(currency.get_url(**kwargs))
+    response = await client.get(crc.get_url(**kwargs))
     if response.status_code == 200:
         print(f"Successful response with asyncio: {index}")
     else:
@@ -59,12 +59,10 @@ async def main():
                 tg.create_task(get_currency(client, requirements, index))
 
 if "__main__" == __name__:
-    currency = CurrencyAPI()
-
     # Sync usage
     t1_sync = time.time()
     for i, requirements_sync in enumerate(API_EXAMPLES):
-        response_sync = requests.get(currency.get_url(**requirements_sync))
+        response_sync = requests.get(crc.get_url(**requirements_sync))
         if response_sync.status_code == 200:
             print(f"Successful response without asyncio: {i}")
         else:

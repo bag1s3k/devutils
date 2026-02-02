@@ -29,7 +29,7 @@ class CurrencyAPI:
     def get_url(self, base: Optional[str] = None, symbols: Optional[Iterable[str]] = None, date: Optional[str] = None) -> str:
         """Generates the API endpoint URL"""
         if date:
-            self.validate_date(date)
+            self._validate_date(date)
             url = f"{self.BASE_URL}/{date}"
         else:
             url = f"{self.BASE_URL}/latest"
@@ -37,11 +37,11 @@ class CurrencyAPI:
         params = []
 
         if base:
-            self.validate_currencies([base])
+            self._validate_currencies([base])
             params.append(f"base={base}")
 
         if symbols:
-            self.validate_currencies(symbols)
+            self._validate_currencies(symbols)
             params.append(f"symbols={",".join(symbols)}")
 
         if params:
@@ -49,14 +49,14 @@ class CurrencyAPI:
 
         return url
 
-    def validate_currencies(self, currencies: Iterable[str]):
+    def _validate_currencies(self, currencies: Iterable[str]):
         """Check if CRC or CRCS are being supported"""
         invalid = [c for c in currencies if c not in self.supported_currencies]
         if invalid:
             raise CurrencyValidationError(f"Unsupported currency codes: {",".join(invalid)}")
 
     @staticmethod
-    def validate_date(date: str):
+    def _validate_date(date: str):
         """Check if date is in form 1999-01-04"""
         try:
             for d in date.split(".."):

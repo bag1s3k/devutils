@@ -15,6 +15,7 @@ class CurrencyAPI:
         self.supported_currencies = self.get_supported_currencies()
 
     def get_supported_currencies(self):
+        """Fetches a list of supported currencies from the API."""
         try:
             response = requests.get(f"{self.BASE_URL}/currencies")
             response.raise_for_status()
@@ -50,14 +51,14 @@ class CurrencyAPI:
         return url
 
     def _validate_currencies(self, currencies: Iterable[str]):
-        """Check if CRC or CRCS are being supported"""
+        """Validated the provided list of currencies"""
         invalid = [c for c in currencies if c not in self.supported_currencies]
         if invalid:
             raise CurrencyValidationError(f"Unsupported currency codes: {",".join(invalid)}")
 
     @staticmethod
     def _validate_date(date: str):
-        """Check if date is in form 1999-01-04"""
+        """Validates the provided date strings"""
         try:
             for d in date.split(".."):
                 datetime.strptime(d, DATE_PATTERN)

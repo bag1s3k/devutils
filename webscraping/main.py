@@ -1,4 +1,4 @@
-﻿class WebInteractor:
+class WebInteractor:
 
     def __init__(self):
         ...
